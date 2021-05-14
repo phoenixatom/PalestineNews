@@ -42,3 +42,9 @@ def aljazeera(url: str):
             "link": href
         })
     return articles
+
+
+def hamas(url: str):
+    content = requests.get(url).text
+    soup = BeautifulSoup(content, 'lxml')
+    print(soup.find_one("h1"))

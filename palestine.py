@@ -33,12 +33,3 @@ def identify_site(url: str):
     for pattern in url_patterns:
         if pattern in url:
             return url_patterns[pattern]
-
-
-def hamas(url: str):
-    content = requests.get(url).text
-    soup = BeautifulSoup(content, 'lxml')
-    print(soup.find_one("h1"))
-
-
-print(scrape("https://www.aljazeera.com/where/palestine/"))
