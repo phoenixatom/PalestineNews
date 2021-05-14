@@ -1,10 +1,11 @@
 import requests
 from requests.exceptions import ConnectionError
-from sites import aljazeera
+from sites import aljazeera, palinfo
 
 url_patterns = {
     "hamas.ps/en": "hamas",
-    "aljazeera.com": "aljazeera"
+    "aljazeera.com": "aljazeera",
+    "english.palinfo.com": "palinfo"
 }
 
 

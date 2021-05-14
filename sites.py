@@ -1,6 +1,7 @@
 import requests
 import lxml
 from bs4 import BeautifulSoup
+import feedparser
 
 
 def aljazeera(url: str):
@@ -48,3 +49,22 @@ def hamas(url: str):
     content = requests.get(url).text
     soup = BeautifulSoup(content, 'lxml')
     print(soup.find_one("h1"))
+
+
+def palinfo(url: str):
+    articles = []
+    url = "https://english.palinfo.com/feed"
+    feed = feedparser.parse(url)
+    for item in feed["items"]:
+        title = item.get("title")
+        image = item["links"][0]["href"]
+        excerpt = item["description"].strip()
+        link = item["link"]
+        if title:
+            articles.append({
+                "title": title,
+                "image": image,
+                "excerpt": excerpt,
+                "link": link
+            })
+    return articles
