@@ -68,3 +68,37 @@ def palinfo(url: str):
                 "link": link
             })
     return articles
+
+
+def ei(url: str):
+    main_url = "https://electronicintifada.net"
+    articles = []
+
+    content = requests.get(url).text
+    soup = BeautifulSoup(content, 'lxml')
+
+    main_article = soup.find("article")
+    main_title = main_article.find("h2").text.strip()
+    main_image = main_article.find("img").get("src")
+    main_link = main_url + main_article.find("a").get("href")
+
+    articles.append({
+        "title": main_title,
+        "image": main_image,
+        "excerpt": None,
+        "link": main_link
+    })
+
+    article_div = soup.find("div", class_="view-content")
+    for article in article_div.find_all("article"):
+        title = article.find("h2").text.strip()
+        image = article.find("img").get("src")
+        excerpt = article.find_all("p")[1].text.strip()
+        link = main_url + article.find("a").get("href")
+        articles.append({
+            "title": title,
+            "image": image,
+            "excerpt": excerpt,
+            "link": link
+        })
+    return articles
